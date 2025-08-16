@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instant Outfit - AI-Powered Virtual Try-On</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        },
+                        secondary: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7c3aed',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 50%, #a855f7 100%);
+        }
+        .btn-primary {
+            background: #0284c7;
+            color: white;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .btn-primary:hover {
+            background: #0369a1;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .btn-secondary {
+            background: white;
+            color: #0284c7;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 2px solid #0284c7;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover {
+            background: #f8fafc;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .animate-slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <div class="gradient-bg p-2 rounded-lg">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z"/>
+                        </svg>
+                    </div>
+                    <span class="text-xl font-bold text-gray-900">Instant Outfit</span>
+                </div>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors">Features</a>
+                    <a href="#try-on" class="text-gray-600 hover:text-blue-600 transition-colors">Try On</a>
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+                    <button class="btn-primary">Get Started</button>
+                </nav>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20 lg:py-32 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
+                    Try On Outfits
+                    <span class="block text-yellow-300">Instantly with AI</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-blue-100 max-w-3xl mx-auto animate-slide-up">
+                    Upload your photo and see how any outfit looks on you before you buy. 
+                    Powered by advanced AI technology for realistic virtual try-ons.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <button class="bg-white text-blue-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl flex items-center space-x-2">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span>Take Photo</span>
+                    </button>
+                    <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 font-semibold py-4 px-8 rounded-lg transition-colors duration-200 flex items-center space-x-2">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                        <span>Upload Photo</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-white opacity-5 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-yellow-300 opacity-10 rounded-full blur-3xl"></div>
+        </div>
+    </section>
+
+    <!-- Try-On Section -->
+    <section id="try-on" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Virtual Try-On Experience
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Upload your photo, select an outfit, and see how it looks on you instantly
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Step 1: Upload Photo -->
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">1</span>
+                        Upload Your Photo
+                    </h3>
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-colors">
+                        <svg class="h-12 w-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                        </svg>
+                        <p class="text-gray-600 mb-4">Drop your photo here or click to browse</p>
+                        <input type="file" accept="image/*" class="hidden" id="photo-upload">
+                        <label for="photo-upload" class="btn-primary cursor-pointer inline-flex items-center space-x-2">
+                            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>Choose Photo</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 2: Select Outfit -->
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">2</span>
+                        Choose Outfit
+                    </h3>
+                    <div class="grid grid-cols-2 gap-3 max-h-96 overflow-y-auto">
+                        <div class="cursor-pointer rounded-lg border-2 border-gray-200 hover:border-blue-300 p-2 transition-all">
+                            <div class="bg-gray-200 h-24 rounded mb-2 flex items-center justify-center">
+                                <span class="text-gray-500 text-xs">Summer Dress</span>
+                            </div>
+                            <p class="text-xs font-medium text-gray-700">Summer Dress</p>
+                            <p class="text-xs text-gray-500">Dresses</p>
+                        </div>
+                        <div class="cursor-pointer rounded-lg border-2 border-gray-200 hover:border-blue-300 p-2 transition-all">
+                            <div class="bg-gray-200 h-24 rounded mb-2 flex items-center justify-center">
+                                <span class="text-gray-500 text-xs">Business Suit</span>
+                            </div>
+                            <p class="text-xs font-medium text-gray-700">Business Suit</p>
+                            <p class="text-xs text-gray-500">Formal</p>
+                        </div>
+                        <div class="cursor-pointer rounded-lg border-2 border-gray-200 hover:border-blue-300 p-2 transition-all">
+                            <div class="bg-gray-200 h-24 rounded mb-2 flex items-center justify-center">
+                                <span class="text-gray-500 text-xs">Casual Jeans</span>
+                            </div>
+                            <p class="text-xs font-medium text-gray-700">Casual Jeans</p>
+                            <p class="text-xs text-gray-500">Casual</p>
+                        </div>
+                        <div class="cursor-pointer rounded-lg border-2 border-gray-200 hover:border-blue-300 p-2 transition-all">
+                            <div class="bg-gray-200 h-24 rounded mb-2 flex items-center justify-center">
+                                <span class="text-gray-500 text-xs">Evening Gown</span>
+                            </div>
+                            <p class="text-xs font-medium text-gray-700">Evening Gown</p>
+                            <p class="text-xs text-gray-500">Evening</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Try-On Result -->
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <span class="bg-blue-100 text-blue-600 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold mr-3">3</span>
+                        Try-On Result
+                    </h3>
+                    <div class="border-2 border-gray-200 rounded-lg p-8 text-center h-80 flex flex-col justify-center">
+                        <svg class="h-12 w-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                        </svg>
+                        <p class="text-gray-600 mb-4">Upload a photo and select an outfit to see the magic!</p>
+                        <button class="btn-primary w-full flex items-center justify-center space-x-2">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+                            </svg>
+                            <span>Try On Outfit</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                    Why Choose Instant Outfit?
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Experience the future of online shopping with our cutting-edge AI technology
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card hover:shadow-xl transition-shadow duration-300">
+                    <div class="gradient-bg p-3 rounded-lg w-fit mb-4">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">AI-Powered Try-On</h3>
+                    <p class="text-gray-600 leading-relaxed">Advanced deep learning models create realistic virtual try-on experiences with accurate body mapping and garment fitting.</p>
+                </div>
+
+                <div class="card hover:shadow-xl transition-shadow duration-300">
+                    <div class="gradient-bg p-3 rounded-lg w-fit mb-4">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Instant Results</h3>
+                    <p class="text-gray-600 leading-relaxed">Get your virtual try-on results in seconds. No waiting, no delays - just instant fashion visualization.</p>
+                </div>
+
+                <div class="card hover:shadow-xl transition-shadow duration-300">
+                    <div class="gradient-bg p-3 rounded-lg w-fit mb-4">
+                        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Personalized Recommendations</h3>
+                    <p class="text-gray-600 leading-relaxed">AI analyzes your body shape, style preferences, and past purchases to suggest outfits that suit you perfectly.</p>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">99%</div>
+                    <div class="text-gray-600">Accuracy Rate</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">2M+</div>
+                    <div class="text-gray-600">Happy Users</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">50K+</div>
+                    <div class="text-gray-600">Outfits Available</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">3s</div>
+                    <div class="text-gray-600">Average Processing</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="gradient-bg p-2 rounded-lg">
+                            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold">Instant Outfit</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Revolutionizing online shopping with AI-powered virtual try-on technology.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Product</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Virtual Try-On</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">AI Recommendations</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Mobile App</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Company</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Press</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Support</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Instant Outfit. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            // Add mobile menu functionality here
+            alert('Mobile menu clicked - add functionality as needed');
+        });
+
+        // Photo upload functionality
+        document.getElementById('photo-upload').addEventListener('change', function(e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    alert('Photo uploaded successfully! In a real app, this would display the image.');
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        });
+
+        // Outfit selection
+        document.querySelectorAll('.cursor-pointer').forEach(function(outfit) {
+            outfit.addEventListener('click', function() {
+                // Remove previous selection
+                document.querySelectorAll('.cursor-pointer').forEach(function(item) {
+                    item.classList.remove('border-blue-500', 'bg-blue-50');
+                    item.classList.add('border-gray-200');
+                });
+                
+                // Add selection to clicked item
+                this.classList.remove('border-gray-200');
+                this.classList.add('border-blue-500', 'bg-blue-50');
+            });
+        });
+    </script>
+</body>
+</html>
