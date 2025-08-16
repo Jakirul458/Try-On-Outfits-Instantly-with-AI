@@ -63,7 +63,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Instant Outfit. All rights reserved.</p>
+          <p>&copy; 2025 Instant Outfit. All rights reserved.</p>
           <p className="text-gray-300">
             Developed by:{" "}
             <a
