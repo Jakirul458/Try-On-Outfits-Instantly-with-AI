@@ -1,0 +1,138 @@
+<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#764ba2;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f093fb;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Skin tone gradient -->
+    <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FDBCB4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F8A998;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Dress gradient -->
+    <linearGradient id="dressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B9D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#C147E9;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- AI glow effect -->
+    <filter id="aiGlow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- Shadow -->
+    <filter id="dropShadow">
+      <feDropShadow dx="1" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="300" height="200" fill="url(#bgGradient)" rx="20"/>
+  
+  <!-- Decorative elements -->
+  <circle cx="50" cy="30" r="3" fill="rgba(255,255,255,0.3)"/>
+  <circle cx="250" cy="40" r="2" fill="rgba(255,255,255,0.4)"/>
+  <circle cx="270" cy="170" r="4" fill="rgba(255,255,255,0.2)"/>
+  
+  <!-- LEFT SIDE - Person without dress -->
+  <g transform="translate(80, 50)">
+    <!-- Head -->
+    <circle cx="0" cy="0" r="12" fill="url(#skinGradient)" filter="url(#dropShadow)"/>
+    <!-- Hair -->
+    <path d="M-10,-8 Q0,-15 10,-8 Q12,-5 8,-2 Q-8,-2 -12,-5 Z" fill="#8B4513"/>
+    <!-- Eyes -->
+    <circle cx="-4" cy="-2" r="1" fill="#333"/>
+    <circle cx="4" cy="-2" r="1" fill="#333"/>
+    <!-- Smile -->
+    <path d="M-3,2 Q0,4 3,2" stroke="#333" stroke-width="0.5" fill="none"/>
+    
+    <!-- Body (basic shape) -->
+    <ellipse cx="0" cy="25" rx="8" ry="15" fill="url(#skinGradient)"/>
+    <!-- Arms -->
+    <ellipse cx="-12" cy="20" rx="3" ry="12" fill="url(#skinGradient)"/>
+    <ellipse cx="12" cy="20" rx="3" ry="12" fill="url(#skinGradient)"/>
+    <!-- Legs -->
+    <ellipse cx="-5" cy="50" rx="3" ry="15" fill="url(#skinGradient)"/>
+    <ellipse cx="5" cy="50" rx="3" ry="15" fill="url(#skinGradient)"/>
+    
+    <!-- Basic undergarments (for modesty) -->
+    <rect x="-6" y="18" width="12" height="8" rx="2" fill="#E5E7EB"/>
+  </g>
+  
+  <!-- ARROW/TRANSFORMATION SYMBOL -->
+  <g transform="translate(150, 100)" filter="url(#aiGlow)">
+    <!-- AI transformation circle -->
+    <circle cx="0" cy="0" r="15" fill="rgba(255,255,255,0.9)" stroke="#4F46E5" stroke-width="2"/>
+    <!-- Arrow -->
+    <path d="M-8,0 L8,0 M4,-4 L8,0 L4,4" stroke="#4F46E5" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- AI symbol -->
+    <text x="0" y="-20" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="#4F46E5">AI</text>
+    
+    <!-- Neural network dots -->
+    <circle cx="-3" cy="-8" r="1" fill="#4F46E5" opacity="0.6"/>
+    <circle cx="3" cy="-8" r="1" fill="#4F46E5" opacity="0.6"/>
+    <circle cx="0" cy="-10" r="1" fill="#4F46E5" opacity="0.6"/>
+  </g>
+  
+  <!-- RIGHT SIDE - Person with dress -->
+  <g transform="translate(220, 50)">
+    <!-- Head (same as left) -->
+    <circle cx="0" cy="0" r="12" fill="url(#skinGradient)" filter="url(#dropShadow)"/>
+    <!-- Hair -->
+    <path d="M-10,-8 Q0,-15 10,-8 Q12,-5 8,-2 Q-8,-2 -12,-5 Z" fill="#8B4513"/>
+    <!-- Eyes -->
+    <circle cx="-4" cy="-2" r="1" fill="#333"/>
+    <circle cx="4" cy="-2" r="1" fill="#333"/>
+    <!-- Smile (bigger/happier) -->
+    <path d="M-4,2 Q0,5 4,2" stroke="#333" stroke-width="0.5" fill="none"/>
+    
+    <!-- Body with dress -->
+    <ellipse cx="0" cy="25" rx="8" ry="15" fill="url(#skinGradient)"/>
+    
+    <!-- Beautiful dress -->
+    <path d="M-12,18 Q-15,25 -12,35 L-8,55 Q0,60 8,55 L12,35 Q15,25 12,18 Z" 
+          fill="url(#dressGradient)" filter="url(#dropShadow)"/>
+    
+    <!-- Dress details -->
+    <circle cx="-4" cy="25" r="1.5" fill="rgba(255,255,255,0.7)"/>
+    <circle cx="4" cy="25" r="1.5" fill="rgba(255,255,255,0.7)"/>
+    <path d="M-6,35 Q0,40 6,35" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none"/>
+    <path d="M-4,45 Q0,47 4,45" stroke="rgba(255,255,255,0.3)" stroke-width="0.5" fill="none"/>
+    
+    <!-- Arms (visible) -->
+    <ellipse cx="-12" cy="20" rx="3" ry="8" fill="url(#skinGradient)"/>
+    <ellipse cx="12" cy="20" rx="3" ry="8" fill="url(#skinGradient)"/>
+    
+    <!-- Legs (partially visible under dress) -->
+    <ellipse cx="-3" cy="58" rx="2" ry="8" fill="url(#skinGradient)"/>
+    <ellipse cx="3" cy="58" rx="2" ry="8" fill="url(#skinGradient)"/>
+    
+    <!-- Shoes -->
+    <ellipse cx="-3" cy="66" rx="3" ry="2" fill="#8B4513"/>
+    <ellipse cx="3" cy="66" rx="3" ry="2" fill="#8B4513"/>
+  </g>
+  
+  <!-- Platform name hint -->
+  <text x="150" y="25" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="rgba(255,255,255,0.9)">Virtual Try-On</text>
+  
+  <!-- Speed indicator -->
+  <g transform="translate(150, 170)">
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="8" text-anchor="middle" fill="rgba(255,255,255,0.8)">⚡ Instant Results</text>
+  </g>
+  
+  <!-- Sparkle effects around transformation -->
+  <g opacity="0.7">
+    <path d="M120,60 L122,64 L126,62 L122,66 L120,70 L118,66 L114,62 L118,64 Z" fill="rgba(255,255,255,0.9)"/>
+    <path d="M180,80 L181,82 L183,81 L181,83 L180,85 L179,83 L177,81 L179,82 Z" fill="rgba(255,255,255,0.8)"/>
+    <circle cx="130" cy="130" r="1" fill="rgba(255,255,255,0.8)"/>
+    <circle cx="170" cy="120" r="1.5" fill="rgba(255,255,255,0.7)"/>
+  </g>
+</svg>

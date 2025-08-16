@@ -2,7 +2,8 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, Sparkles } from 'lucide-react'
+import Image from 'next/image'
+import { Menu, X } from 'lucide-react'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -12,9 +13,15 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="gradient-bg p-2 rounded-lg">
-              <Sparkles className="h-6 w-6 text-white" />
+          <Link href="/" className="flex items-center space-x-3">
+            <div className="relative">
+              <Image
+                src="/instant-outfits-logo.svg"
+                alt="Instant Outfit Logo"
+                width={40}
+                height={27}
+                className="h-8 w-auto"
+              />
             </div>
             <span className="text-xl font-bold text-gray-900">Instant Outfit</span>
           </Link>
@@ -26,7 +33,12 @@ export default function Header() {
             <Link href="/#features" className="text-gray-600 hover:text-primary-600 transition-colors">Features</Link>
             <Link href="/about" className="text-gray-600 hover:text-primary-600 transition-colors">About</Link>
             <Link href="/contact" className="text-gray-600 hover:text-primary-600 transition-colors">Contact</Link>
-            <button className="btn-primary">Get Started</button>
+            <button 
+              onClick={() => document.getElementById('try-on')?.scrollIntoView({ behavior: 'smooth' })}
+              className="btn-primary"
+            >
+              Get Started
+            </button>
           </nav>
 
           {/* Mobile menu button */}
@@ -49,7 +61,15 @@ export default function Header() {
               <Link href="/#try-on" className="text-gray-600 hover:text-primary-600 transition-colors">Try On</Link>
               <Link href="/about" className="text-gray-600 hover:text-primary-600 transition-colors">About</Link>
               <Link href="/contact" className="text-gray-600 hover:text-primary-600 transition-colors">Contact</Link>
-              <button className="btn-primary w-full">Get Started</button>
+              <button 
+                onClick={() => {
+                  setIsMenuOpen(false)
+                  document.getElementById('try-on')?.scrollIntoView({ behavior: 'smooth' })
+                }}
+                className="btn-primary w-full"
+              >
+                Get Started
+              </button>
             </div>
           </div>
         )}

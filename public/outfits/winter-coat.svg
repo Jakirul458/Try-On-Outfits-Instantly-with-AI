@@ -1,0 +1,36 @@
+<svg viewBox="0 0 200 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="coatGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A0522D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="200" height="300" fill="#f8f9fa" rx="10"/>
+  
+  <!-- Winter Coat -->
+  <path d="M50,60 L150,60 L155,80 L160,120 L155,180 L150,220 L145,260 L140,280 L60,280 L55,260 L50,220 L45,180 L40,120 L45,80 Z" 
+        fill="url(#coatGradient)" stroke="#654321" stroke-width="1"/>
+  
+  <!-- Hood -->
+  <path d="M70,40 Q100,30 130,40 L130,60 L70,60 Z" fill="url(#coatGradient)" stroke="#654321" stroke-width="1"/>
+  
+  <!-- Zipper -->
+  <rect x="98" y="60" width="4" height="220" fill="#C0C0C0"/>
+  <circle cx="100" cy="70" r="2" fill="#808080"/>
+  <circle cx="100" cy="90" r="2" fill="#808080"/>
+  <circle cx="100" cy="110" r="2" fill="#808080"/>
+  <circle cx="100" cy="130" r="2" fill="#808080"/>
+  
+  <!-- Pockets -->
+  <rect x="60" y="140" width="25" height="20" rx="3" fill="none" stroke="#654321" stroke-width="2"/>
+  <rect x="115" y="140" width="25" height="20" rx="3" fill="none" stroke="#654321" stroke-width="2"/>
+  
+  <!-- Fur trim -->
+  <path d="M70,60 Q75,55 80,60 Q85,55 90,60 Q95,55 100,60 Q105,55 110,60 Q115,55 120,60 Q125,55 130,60" 
+        stroke="#F5F5DC" stroke-width="3" fill="none"/>
+  
+  <!-- Label -->
+  <text x="100" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#333">Winter Coat</text>
+</svg>

@@ -8,6 +8,14 @@ export const metadata: Metadata = {
   title: 'Instant Outfit - AI-Powered Virtual Try-On',
   description: 'Try on clothes virtually using AI technology. See how outfits look on you before you buy.',
   keywords: 'virtual try-on, AI fashion, outfit recommendation, online shopping',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
